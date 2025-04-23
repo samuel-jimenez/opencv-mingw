@@ -1,0 +1,38 @@
+name: ci
+on: [ push, pull_request ]
+
+jobs:
+  choco:
+    name: choco
+    runs-on: windows-2022
+    continue-on-error: false
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: "`chocolatey` ~ install git"
+        run: choco install git.install --params "'/GitAndUnixToolsOnPath /WindowsTerminal /NoAutoCrlf'"
+
+      - name: "`chocolatey` ~ install deps"
+        run: choco install mingw cmake
+
+      - name: "check PATH"
+        run: echo $PATH
+
+      - name: "setup build env"
+        run: |
+          mkdir -p C:\opencv\build
+          cd C:\opencv
+          git clone https://github.com/opencv/opencv.git
+          git clone https://github.com/opencv/opencv_contrib.git
+
+
+      - name: "cmake"
+        run: |
+          cd C:\opencv\build
+          cmake C:\opencv\opencv -G "MinGW Makefiles" -BC:\opencv\build -DENABLE_CXX11=ON -DOPENCV_EXTRA_MODULES_PATH=C:\opencv\opencv_contrib-4.11.0\modules -DBUILD_SHARED_LIBS=OFF -DWITH_IPP=OFF -DWITH_MSMF=OFF -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=ON -DBUILD_opencv_java=OFF -DBUILD_opencv_python=OFF -DBUILD_opencv_python2=OFF -DBUILD_opencv_python3=OFF -DBUILD_DOCS=OFF -DENABLE_PRECOMPILED_HEADERS=OFF -DBUILD_opencv_saliency=OFF -DBUILD_opencv_wechat_qrcode=ON -DCPU_DISPATCH= -DOPENCV_GENERATE_PKGCONFIG=ON -DWITH_OPENCL_D3D11_NV=OFF -DOPENCV_ALLOCATOR_STATS_COUNTER_TYPE=int64_t -Wno-dev
+          mingw32-make -j8
+          mingw32-make install
