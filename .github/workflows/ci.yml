@@ -2,8 +2,8 @@ name: ci
 on: [ push, pull_request ]
 
 jobs:
-  choco:
-    name: choco
+  opencv:
+    name: opencv
     runs-on: windows-2022
     continue-on-error: false
     timeout-minutes: 60
