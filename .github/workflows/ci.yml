@@ -45,6 +45,9 @@ jobs:
             directory: "C:/opencv"
 
       - name: release
-        uses: softprops/action-gh-release@v2
+        uses: ncipollo/release-action@v1
         with:
-          files: opencv.zip
+            artifacts: "opencv.zip"
+
+
+
