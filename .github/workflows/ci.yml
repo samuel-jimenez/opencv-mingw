@@ -38,4 +38,8 @@ jobs:
           mingw32-make install
 
       - name: "package"
-        run: zip -r "$d.zip" "$d"
+        uses: thedoctor0/zip-release@0.7.5
+        with:
+            type: 'zip'
+            filename: "opencv.zip"
+            directory: "C:\opencv"
