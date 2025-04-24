@@ -50,6 +50,7 @@ jobs:
             directory: "C:/opencv"
 
       - name: release
+        if: github.ref_type == 'tag'
         uses: ncipollo/release-action@v1
         with:
             artifacts: "opencv.zip"
