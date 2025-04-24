@@ -43,3 +43,8 @@ jobs:
             type: 'zip'
             filename: "opencv.zip"
             directory: "C:/opencv"
+
+      - name: release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: opencv.zip
