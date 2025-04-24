@@ -53,6 +53,6 @@ jobs:
         if: github.ref_type == 'tag'
         uses: ncipollo/release-action@v1
         with:
-            artifacts: "opencv.zip"
+            artifacts: "C:/opencv/opencv.zip"
 
 
