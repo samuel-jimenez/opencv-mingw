@@ -1,10 +1,15 @@
 name: ci
-on: [ push, pull_request ]
+on:
+  push:
+    tags:
+    - '*'
 
 jobs:
   opencv:
     name: opencv
     runs-on: windows-2022
+    permissions:
+      contents: write
     continue-on-error: false
     timeout-minutes: 60
     strategy:
@@ -48,6 +53,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
             artifacts: "opencv.zip"
-
 
 
