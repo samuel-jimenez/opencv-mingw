@@ -42,4 +42,4 @@ jobs:
         with:
             type: 'zip'
             filename: "opencv.zip"
-            directory: "C:\opencv"
+            directory: "C:/opencv"
